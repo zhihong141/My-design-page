@@ -6,6 +6,7 @@
   <meta name="description" content="seven.four — Creative graphic designer. Hybrid 2D/3D works, AI-assisted design, interactive experiences.">
   <title>seven.four — Graphic Designer</title>
 
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236B46C1'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='13' fill='white'>7.4</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Nunito:wght@900&display=swap" rel="stylesheet">
@@ -585,7 +586,7 @@
     }
     /* Gradient themes */
     .th-ctrl {
-      background: #1d1d1d url('Work_001.png') center / contain no-repeat;
+      background-color: #1d1d1d;
       flex-direction: column;
       gap: 14px;
       padding: 0;
@@ -616,10 +617,10 @@
       background: linear-gradient(138deg, #10021e 0%, #2a0f52 45%, #0d0d0d 100%);
     }
     .th-web {
-      background: #0d0d0d url('Work_002.png') center / contain no-repeat;
+      background-color: #0d0d0d;
     }
     .th-material {
-      background: #0d0d0d url('Work_003.png') center / contain no-repeat;
+      background-color: #0d0d0d;
     }
     /* Geo decorations inside thumbs */
     .tg {
@@ -1098,6 +1099,111 @@
     }
 
     /* ─────────────────────────────────────────
+       SCROLL PROGRESS BAR (top)
+    ───────────────────────────────────────── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 2px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--v), var(--v-light));
+      z-index: 9999;
+      transition: width 0.08s linear;
+      pointer-events: none;
+    }
+
+    /* ─────────────────────────────────────────
+       SCROLL INDICATOR (left edge)
+    ───────────────────────────────────────── */
+    #scroll-indicator {
+      position: fixed;
+      left: 0; top: 0;
+      width: 2px;
+      height: 0%;
+      background: linear-gradient(to bottom, var(--v), var(--v-light));
+      z-index: 800;
+      transition: height 0.08s linear;
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* ─────────────────────────────────────────
+       BACK TO TOP
+    ───────────────────────────────────────── */
+    #back-top {
+      position: fixed;
+      bottom: 32px; right: 36px;
+      z-index: 800;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card);
+      cursor: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      font-size: 16px;
+      color: var(--gray);
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: all var(--t);
+    }
+    #back-top.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    #back-top:hover {
+      border-color: rgba(107,70,193,0.3);
+      color: var(--v);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 28px rgba(107,70,193,0.15);
+    }
+
+    /* ─────────────────────────────────────────
+       AVAILABLE BADGE
+    ───────────────────────────────────────── */
+    .nav-avail {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.08em;
+      color: var(--gray);
+    }
+    .avail-dot {
+      width: 6px; height: 6px;
+      background: #22c55e;
+      border-radius: 50%;
+      flex-shrink: 0;
+      animation: avail-ping 2.5s ease infinite;
+    }
+    @keyframes avail-ping {
+      0%   { box-shadow: 0 0 0 0   rgba(34,197,94,0.5); }
+      70%  { box-shadow: 0 0 0 7px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0   rgba(34,197,94,0); }
+    }
+
+    /* ─────────────────────────────────────────
+       ACTIVE NAV LINK
+    ───────────────────────────────────────── */
+    .nav-links a.active { color: var(--black); }
+    .nav-links a.active::after { width: 100%; }
+
+    /* ─────────────────────────────────────────
+       CARD THUMBNAIL ZOOM
+    ───────────────────────────────────────── */
+    .c-thumb {
+      transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .pcard:hover:not(.expanded) .c-thumb {
+      transform: scale(1.04);
+    }
+
+    /* ─────────────────────────────────────────
        MUSIC TOGGLE
     ───────────────────────────────────────── */
     #music-btn {
@@ -1199,6 +1305,7 @@
     }
 
     @media (max-width: 860px) {
+      .nav-avail { display: none; }
       #about .about-grid { grid-template-columns: 1fr; }
       .about-visual { min-height: 220px; }
       #resume .resume-grid { grid-template-columns: 1fr; }
@@ -1255,6 +1362,9 @@
 </head>
 <body>
 
+  <div id="progress-bar"></div>
+  <div id="scroll-indicator"></div>
+
   <!-- Cursor -->
   <div id="cur"></div>
   <div id="cur-ring"></div>
@@ -1268,10 +1378,12 @@
     </div>
   </button>
   <audio id="bg-music" src="music.mp3" loop preload="none"></audio>
+  <button id="back-top" aria-label="Back to top">↑</button>
 
   <!-- ════════════ NAV ════════════ -->
   <nav id="nav">
     <a href="#" class="nav-logo">seven.four</a>
+    <div class="nav-avail"><span class="avail-dot"></span>Available for work</div>
     <ul class="nav-links">
       <li><a href="#work">Work</a></li>
       <li><a href="#about">About</a></li>
@@ -1359,7 +1471,7 @@
         <!-- ── Card 01: CTRL+ ── -->
         <article class="pcard reveal" role="listitem" tabindex="0" aria-expanded="false"
                  aria-label="Project: CTRL+ — TV Channel Identity">
-          <div class="c-thumb th-ctrl" aria-hidden="true"></div>
+          <div class="c-thumb th-ctrl" data-bg="Work_001.png" aria-hidden="true"></div>
           <div class="c-body">
             <div class="c-meta">
               <span class="c-year">2026</span>
@@ -1397,7 +1509,7 @@
         <!-- ── Card 02: Loading Screen Concept ── -->
         <article class="pcard reveal" role="listitem" tabindex="0" aria-expanded="false"
                  aria-label="Project: Loading Screen Concept Art">
-          <div class="c-thumb th-web" aria-hidden="true"></div>
+          <div class="c-thumb th-web" data-bg="Work_002.png" aria-hidden="true"></div>
           <div class="c-body">
             <div class="c-meta">
               <span class="c-year">2025 — 2026</span>
@@ -1434,7 +1546,7 @@
         <!-- ── Card 03: Art Installation ── -->
         <article class="pcard reveal" role="listitem" tabindex="0" aria-expanded="false"
                  aria-label="Project: Art Installation">
-          <div class="c-thumb th-material" aria-hidden="true"></div>
+          <div class="c-thumb th-material" data-bg="Work_003.png" aria-hidden="true"></div>
           <div class="c-body">
             <div class="c-meta">
               <span class="c-year">2025 — 2026</span>
@@ -1651,7 +1763,7 @@
   <!-- ════════════ FOOTER ════════════ -->
   <footer>
     <span class="footer-logo">seven.four</span>
-    <span class="footer-copy">© 2025 seven.four. All rights reserved.</span>
+    <span class="footer-copy">© <span id="copy-year"></span> seven.four. All rights reserved.</span>
   </footer>
 
   <script>
@@ -1769,6 +1881,58 @@
       }
       requestAnimationFrame(tickHero);
     })();
+    /* ── Copyright year ── */
+    document.getElementById('copy-year').textContent = new Date().getFullYear();
+
+    /* ── Scroll progress bar + left indicator ── */
+    const progressBar     = document.getElementById('progress-bar');
+    const scrollIndicator = document.getElementById('scroll-indicator');
+    const backTop         = document.getElementById('back-top');
+
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+      const p   = (pct * 100).toFixed(2) + '%';
+      progressBar.style.width     = p;
+      scrollIndicator.style.height = p;
+      backTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+
+    backTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    /* ── Active nav on scroll ── */
+    const navAnchors = document.querySelectorAll('.nav-links a');
+    const sectionIds = ['work', 'about', 'resume', 'contact'];
+    const sectionEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+    const navObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navAnchors.forEach(a => a.classList.remove('active'));
+          const link = document.querySelector(`.nav-links a[href="#${entry.target.id}"]`);
+          if (link) link.classList.add('active');
+        }
+      });
+    }, { threshold: 0.35 });
+
+    sectionEls.forEach(el => navObserver.observe(el));
+
+    /* ── Lazy load card background images ── */
+    const lazyThumbs = document.querySelectorAll('.c-thumb[data-bg]');
+    const lazyObserver = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          el.style.backgroundImage    = `url('${el.dataset.bg}')`;
+          el.style.backgroundSize     = 'contain';
+          el.style.backgroundRepeat   = 'no-repeat';
+          el.style.backgroundPosition = 'center';
+          lazyObserver.unobserve(el);
+        }
+      });
+    }, { rootMargin: '200px' });
+
+    lazyThumbs.forEach(el => lazyObserver.observe(el));
+
     /* ── Background music toggle ── */
     const bgMusic  = document.getElementById('bg-music');
     const musicBtn = document.getElementById('music-btn');
