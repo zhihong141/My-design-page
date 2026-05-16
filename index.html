@@ -1049,7 +1049,14 @@
       .rcard-exp, .rcard-skills { grid-column: 1; }
       .r-exp-cols { grid-template-columns: 1fr; }
       .skill-cols { grid-template-columns: 1fr 1fr; }
-      .contact-card { grid-template-columns: 1fr; gap: 32px; }
+      #contact .contact-card {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 32px;
+      }
+      .contact-btns { width: 100%; }
+      .cbtn { width: 100%; justify-content: center; white-space: normal; }
       .hero-ring, .hf-1, .hf-2 { display: none; }
       .section-wrap { padding-top: 72px; padding-bottom: 72px; }
     }
