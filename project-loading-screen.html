@@ -67,9 +67,10 @@
     .proj-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .proj-gallery-grid .proj-item-wide { grid-column: 1 / -1; }
     .proj-item { border-radius: var(--r); overflow: hidden; background: #0d0d0d; aspect-ratio: 16/9; }
+    .proj-item.proj-item-portrait { aspect-ratio: 9/16; }
     .proj-item video { width: 100%; height: 100%; object-fit: contain; display: block; }
     .proj-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
-    @media (max-width: 600px) { .proj-gallery-grid { grid-template-columns: 1fr; } .proj-gallery-grid .proj-item-wide { grid-column: 1; } }
+    @media (max-width: 600px) { .proj-gallery-grid { grid-template-columns: 1fr; } .proj-gallery-grid .proj-item-wide { grid-column: 1; } .proj-item.proj-item-portrait { aspect-ratio: 9/16; } }
     .proj-nav { border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; }
     .pnav-item { padding: 36px 44px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: background var(--t); }
     .pnav-item:first-child { border-right: 1px solid var(--border); }
@@ -152,24 +153,19 @@
           <source src="video-rubber-ducky.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="proj-item">
-        <video autoplay muted loop playsinline>
-          <source src="video-car.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="proj-item">
-        <video autoplay muted loop playsinline>
-          <source src="video-showerhead.mp4" type="video/mp4">
-        </video>
-      </div>
-      <div class="proj-item">
+      <div class="proj-item proj-item-portrait">
         <video autoplay muted loop playsinline>
           <source src="video-swing.mp4" type="video/mp4">
         </video>
       </div>
-      <div class="proj-item">
+      <div class="proj-item proj-item-portrait">
         <video autoplay muted loop playsinline>
           <source src="video-wagasa.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="proj-item proj-item-wide">
+        <video autoplay muted loop playsinline>
+          <source src="video-car.mp4" type="video/mp4">
         </video>
       </div>
       <div class="proj-item proj-item-wide">
