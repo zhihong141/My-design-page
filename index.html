@@ -6,6 +6,8 @@
   <meta name="description" content="seven.four — Creative graphic designer. Hybrid 2D/3D works, AI-assisted design, interactive experiences.">
   <title>seven.four — Graphic Designer</title>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236B46C1'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='13' fill='white'>7.4</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1099,6 +1101,72 @@
     }
 
     /* ─────────────────────────────────────────
+       INTRO SCREEN
+    ───────────────────────────────────────── */
+    #intro {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: all;
+    }
+    .intro-panel {
+      position: absolute;
+      left: 0; right: 0;
+      height: 51%;
+      background: #0A0A0A;
+    }
+    .intro-panel-top    { top: 0; }
+    .intro-panel-bottom { bottom: 0; }
+    .intro-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .intro-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(52px, 9vw, 112px);
+      letter-spacing: -0.03em;
+      display: flex;
+      align-items: baseline;
+    }
+    .intro-clip {
+      overflow: hidden;
+      display: inline-block;
+    }
+    .il-seven { display: block; color: #ffffff; transform: translateY(110%); }
+    .il-dot   { display: block; color: #6B46C1; transform: translateY(110%); }
+    .il-four  {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 2px #ffffff;
+      transform: translateY(110%);
+    }
+    .intro-bar {
+      width: 140px; height: 1px;
+      background: rgba(255,255,255,0.12);
+      overflow: hidden;
+    }
+    .intro-bar-fill {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--v), var(--v-light));
+    }
+    .intro-tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 9.5px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      opacity: 0;
+    }
+
+    /* ─────────────────────────────────────────
        SCROLL PROGRESS BAR (top)
     ───────────────────────────────────────── */
     #progress-bar {
@@ -1281,11 +1349,6 @@
     .reveal {
       opacity: 0;
       transform: translateY(26px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-    .reveal.in {
-      opacity: 1;
-      transform: none;
     }
 
     /* ─────────────────────────────────────────
@@ -1361,6 +1424,21 @@
   </style>
 </head>
 <body>
+
+  <!-- Intro screen -->
+  <div id="intro">
+    <div class="intro-panel intro-panel-top"></div>
+    <div class="intro-panel intro-panel-bottom"></div>
+    <div class="intro-content">
+      <div class="intro-logo">
+        <div class="intro-clip"><span class="il-seven">SEVEN</span></div>
+        <div class="intro-clip"><span class="il-dot">.</span></div>
+        <div class="intro-clip"><span class="il-four">FOUR</span></div>
+      </div>
+      <div class="intro-bar"><div class="intro-bar-fill"></div></div>
+      <p class="intro-tag">Creative Designer / Singapore</p>
+    </div>
+  </div>
 
   <div id="progress-bar"></div>
   <div id="scroll-indicator"></div>
@@ -1835,22 +1913,68 @@
       if (e.key === 'Escape' && active) collapseCard(active);
     });
 
-    /* ── Scroll reveal with stagger ── */
-    const revealEls = document.querySelectorAll('.reveal');
-    revealEls.forEach((el, i) => {
-      el.style.transitionDelay = `${(i % 4) * 80}ms`;
-    });
+    /* ── GSAP Intro + Scroll Reveals ── */
+    window.addEventListener('load', () => {
+      if (typeof gsap === 'undefined') {
+        // fallback if GSAP fails to load
+        document.querySelectorAll('.reveal').forEach(el => {
+          el.style.opacity = 1;
+          el.style.transform = 'none';
+        });
+        document.getElementById('intro').style.display = 'none';
+        return;
+      }
 
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          io.unobserve(entry.target);
+      gsap.registerPlugin(ScrollTrigger);
+      document.body.style.overflow = 'hidden';
+
+      /* — Intro timeline — */
+      const tl = gsap.timeline({
+        onComplete: () => {
+          document.body.style.overflow = '';
+          document.getElementById('intro').style.pointerEvents = 'none';
+          initScrollReveals();
         }
       });
-    }, { threshold: 0.12 });
 
-    revealEls.forEach(el => io.observe(el));
+      tl
+        .to(['.il-seven', '.il-dot', '.il-four'], {
+          y: 0,
+          duration: 1,
+          ease: 'power4.out',
+          stagger: 0.1,
+        }, 0.2)
+        .to('.intro-bar-fill', { width: '100%', duration: 1, ease: 'power2.inOut' }, 0.7)
+        .to('.intro-tag', { opacity: 1, duration: 0.5, ease: 'power2.out' }, 1.2)
+        .to('.intro-tag', { opacity: 0, duration: 0.4 }, 2.4)
+        .to('.intro-bar-fill', { opacity: 0, duration: 0.3 }, 2.4)
+        .to(['.il-seven', '.il-dot', '.il-four'], {
+          y: '-110%',
+          duration: 0.7,
+          ease: 'power3.in',
+          stagger: 0.06,
+        }, 2.5)
+        .to('.intro-panel-top',    { y: '-100%', duration: 0.9, ease: 'power3.inOut' }, 2.8)
+        .to('.intro-panel-bottom', { y:  '100%', duration: 0.9, ease: 'power3.inOut' }, 2.8);
+
+      /* — Scroll reveals — */
+      function initScrollReveals() {
+        gsap.utils.toArray('.reveal').forEach((el, i) => {
+          gsap.to(el, {
+            opacity: 1,
+            y: 0,
+            duration: 0.75,
+            ease: 'power2.out',
+            delay: (i % 3) * 0.08,
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none none',
+            }
+          });
+        });
+      }
+    });
 
     /* ── Hero parallax (blobs only) ── */
     const blob1     = document.getElementById('blob1');
