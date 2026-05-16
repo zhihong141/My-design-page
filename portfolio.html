@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&family=Nunito:wght@900&display=swap" rel="stylesheet">
 
   <style>
     /* ─────────────────────────────────────────
@@ -500,6 +500,33 @@
       z-index: 1;
     }
     /* Gradient themes */
+    .th-ctrl {
+      background: #1d1d1d;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .th-ctrl-logo {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: clamp(44px, 5.5vw, 68px);
+      color: #ffffff;
+      letter-spacing: -0.025em;
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+      user-select: none;
+    }
+    .th-ctrl-sub {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 600;
+      font-size: 9.5px;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+      user-select: none;
+    }
     .th-editorial {
       background: linear-gradient(138deg, #10021e 0%, #2a0f52 45%, #0d0d0d 100%);
     }
@@ -1091,26 +1118,25 @@
     <div class="work-grid-wrap">
       <div class="work-grid" id="workGrid" role="list">
 
-        <!-- ── Card 01: CTRL-A ── -->
+        <!-- ── Card 01: CTRL+ ── -->
         <article class="pcard reveal" role="listitem" tabindex="0" aria-expanded="false"
-                 aria-label="Project: Proj CTRL-A — TV Channel Branding">
-          <div class="c-thumb th-editorial" aria-hidden="true">
-            <div class="tg tg-1"></div>
-            <div class="tg tg-2"></div>
-            <span class="c-thumb-label">[PROJECT_01.IMG]</span>
+                 aria-label="Project: CTRL+ — TV Channel Identity">
+          <div class="c-thumb th-ctrl" aria-hidden="true">
+            <span class="th-ctrl-logo">CTRL+</span>
+            <span class="th-ctrl-sub">Controlled Chaos Broadcasting</span>
           </div>
           <div class="c-body">
             <div class="c-meta">
               <span class="c-year">2026</span>
               <button class="c-btn" aria-label="Expand project details" tabindex="-1">+</button>
             </div>
-            <h3 class="c-title">Proj CTRL-A — TV Channel Branding</h3>
+            <h3 class="c-title">CTRL+ — TV Channel Identity</h3>
             <p class="c-cat">Branding / Digital Art</p>
           </div>
           <div class="c-expand" aria-hidden="true">
             <div class="c-expand-inner">
               <div>
-                <p class="c-desc">A conceptual TV channel branding project exploring bold visual identity design through AI-assisted image generation and motion. CTRL-A — select all — sets the tone for a channel that captures everything.</p>
+                <p class="c-desc">A hyper-minimal broadcast channel delivering chaotic, addictive entertainment. A system that looks stable, but is constantly breaking underneath.</p>
                 <div class="c-tags">
                   <span class="c-tag">Branding</span>
                   <span class="c-tag">TV Channel</span>
