@@ -391,6 +391,90 @@
     }
 
     /* ─────────────────────────────────────────
+       HERO DOTS & EXTRA DECORATIONS
+    ───────────────────────────────────────── */
+    .hero-ring-2 {
+      position: absolute;
+      width: 300px; height: 300px;
+      border: 1px solid rgba(107,70,193,0.09);
+      border-radius: 50%;
+      top: 18%; left: 12%;
+      pointer-events: none;
+    }
+    .hero-ring-2::before {
+      content: '';
+      position: absolute;
+      inset: 50px;
+      border: 1px solid rgba(107,70,193,0.05);
+      border-radius: 50%;
+    }
+    .hero-ring-2::after {
+      content: '';
+      position: absolute;
+      width: 6px; height: 6px;
+      background: var(--v-light);
+      border-radius: 50%;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px rgba(139,92,246,0.6);
+    }
+
+    .hero-dot {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+    }
+    .hd-1 { width: 6px; height: 6px; background: var(--v);       top: 22%; left: 7%;  animation: fade-up .5s ease forwards 1.8s, dot-pulse 4s   ease-in-out infinite 2.3s; }
+    .hd-2 { width: 3px; height: 3px; background: var(--v-light); top: 9%;  left: 36%; animation: fade-up .5s ease forwards 2s,   dot-pulse 3s   ease-in-out infinite 2.5s; }
+    .hd-3 { width: 5px; height: 5px; background: var(--v);       top: 64%; left: 20%; animation: fade-up .5s ease forwards 2.1s, dot-pulse 5s   ease-in-out infinite 2.6s; }
+    .hd-4 { width: 4px; height: 4px; background: var(--v-mid);   top: 28%; left: 54%; animation: fade-up .5s ease forwards 1.9s, dot-pulse 3.5s ease-in-out infinite 2.4s; }
+    .hd-5 { width: 3px; height: 3px; background: var(--v-light); top: 80%; left: 40%; animation: fade-up .5s ease forwards 2.2s, dot-pulse 4.5s ease-in-out infinite 2.7s; }
+    .hd-6 { width: 5px; height: 5px; background: var(--v);       top: 13%; left: 66%; animation: fade-up .5s ease forwards 1.7s, dot-pulse 3.8s ease-in-out infinite 2.2s; }
+    .hd-7 { width: 3px; height: 3px; background: var(--v-light); top: 50%; left: 8%;  animation: fade-up .5s ease forwards 2.3s, dot-pulse 4.2s ease-in-out infinite 2.8s; }
+    .hd-8 { width: 4px; height: 4px; background: var(--v);       top: 72%; left: 62%; animation: fade-up .5s ease forwards 2.0s, dot-pulse 3.2s ease-in-out infinite 2.5s; }
+
+    /* Radar ping on select dots */
+    .hd-ping::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 100%; height: 100%;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(107,70,193,0.6);
+      border-radius: 50%;
+      animation: dot-ping 3s ease-out infinite 2.5s;
+    }
+    .hd-3.hd-ping::after { animation-delay: 3.5s; }
+    .hd-8.hd-ping::after { animation-delay: 4.2s; }
+
+    /* Crosshair accent */
+    .hero-cross {
+      position: absolute;
+      top: 42%; left: 32%;
+      width: 20px; height: 20px;
+      pointer-events: none;
+      opacity: 0;
+      animation: fade-up .5s ease forwards 2.4s, dot-pulse 6s ease-in-out infinite 2.9s;
+    }
+    .hero-cross::before, .hero-cross::after {
+      content: '';
+      position: absolute;
+      background: rgba(107,70,193,0.35);
+    }
+    .hero-cross::before { width: 1px; height: 100%; top: 0; left: 50%; transform: translateX(-50%); }
+    .hero-cross::after  { width: 100%; height: 1px; top: 50%; left: 0; transform: translateY(-50%); }
+
+    @keyframes dot-pulse {
+      0%, 100% { opacity: 0.3; transform: scale(1); }
+      50%       { opacity: 1;   transform: scale(1.6); }
+    }
+    @keyframes dot-ping {
+      0%   { transform: translate(-50%, -50%) scale(1);   opacity: 0.8; }
+      100% { transform: translate(-50%, -50%) scale(5);   opacity: 0; }
+    }
+
+    /* ─────────────────────────────────────────
        SECTION SHARED
     ───────────────────────────────────────── */
     .section-wrap {
@@ -1119,6 +1203,17 @@
     <div class="blob blob-1" id="blob1"></div>
     <div class="blob blob-2" id="blob2"></div>
     <div class="hero-ring" id="heroRing"></div>
+    <div class="hero-ring-2" id="heroRing2"></div>
+
+    <div class="hero-dot hd-1 hd-ping"></div>
+    <div class="hero-dot hd-2"></div>
+    <div class="hero-dot hd-3 hd-ping"></div>
+    <div class="hero-dot hd-4"></div>
+    <div class="hero-dot hd-5"></div>
+    <div class="hero-dot hd-6"></div>
+    <div class="hero-dot hd-7"></div>
+    <div class="hero-dot hd-8 hd-ping"></div>
+    <div class="hero-cross"></div>
 
     <!-- Floating cards -->
     <div class="hero-float hf-1">
@@ -1564,9 +1659,10 @@
     revealEls.forEach(el => io.observe(el));
 
     /* ── Hero parallax (blobs only) ── */
-    const blob1    = document.getElementById('blob1');
-    const blob2    = document.getElementById('blob2');
-    const heroRing = document.getElementById('heroRing');
+    const blob1     = document.getElementById('blob1');
+    const blob2     = document.getElementById('blob2');
+    const heroRing  = document.getElementById('heroRing');
+    const heroRing2 = document.getElementById('heroRing2');
     let angle = 0;
     let px = 0, py = 0;
 
@@ -1582,9 +1678,12 @@
       if (blob1) blob1.style.transform = `translate(${dx * -0.4}px, ${dy * -0.4}px)`;
       if (blob2) blob2.style.transform = `translate(${dx *  0.3}px, ${dy *  0.3}px)`;
       if (heroRing) {
-        const hy = -55;
         heroRing.style.transform =
-          `translateY(${hy}%) translate(${dx * 0.25}px, ${dy * 0.25}px) rotate(${angle}deg)`;
+          `translateY(-55%) translate(${dx * 0.25}px, ${dy * 0.25}px) rotate(${angle}deg)`;
+      }
+      if (heroRing2) {
+        heroRing2.style.transform =
+          `translate(${dx * -0.2}px, ${dy * -0.2}px) rotate(${-angle * 0.7}deg)`;
       }
       requestAnimationFrame(tickHero);
     })();
