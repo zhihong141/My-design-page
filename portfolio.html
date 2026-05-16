@@ -1067,9 +1067,11 @@
       .hero-desc { font-size: 14px; margin-bottom: 28px; }
       .work-grid { grid-template-columns: 1fr; }
       .skill-cols { grid-template-columns: 1fr; }
-      .contact-card { padding: 40px 24px; }
+      .contact-card { padding: 40px 24px; overflow: visible; }
+      .contact-card::before, .contact-card::after { display: none; }
       .contact-heading { font-size: clamp(26px, 7vw, 38px); }
-      .cbtn { padding: 11px 18px; font-size: 13px; }
+      .contact-btns { width: 100%; }
+      .cbtn { padding: 11px 18px; font-size: 13px; white-space: normal; width: 100%; justify-content: center; }
       .about-card { padding: 32px 24px; }
       .about-stmt { font-size: clamp(18px, 5vw, 26px); }
       .rcard { padding: 24px 20px; }
