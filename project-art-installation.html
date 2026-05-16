@@ -64,9 +64,12 @@
     .proj-link span { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--v); letter-spacing: 0.06em; }
     .proj-gallery { max-width: 1200px; margin: 0 auto; padding: 0 44px 80px; }
     .proj-gallery-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--v); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-    .proj-gallery-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-    .proj-img { width: 100%; border-radius: var(--r); overflow: hidden; background: #0d0d0d; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; }
-    .proj-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .proj-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .proj-gallery-grid .proj-item-wide { grid-column: 1 / -1; }
+    .proj-item { border-radius: var(--r); overflow: hidden; background: #0d0d0d; aspect-ratio: 16/9; }
+    .proj-item video { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .proj-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    @media (max-width: 600px) { .proj-gallery-grid { grid-template-columns: 1fr; } .proj-gallery-grid .proj-item-wide { grid-column: 1; } }
     .proj-nav { border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; }
     .pnav-item { padding: 36px 44px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: background var(--t); }
     .pnav-item:first-child { border-right: 1px solid var(--border); }
@@ -144,8 +147,20 @@
   <div class="proj-gallery">
     <p class="proj-gallery-label">// Gallery</p>
     <div class="proj-gallery-grid">
-      <div class="proj-img">
-        <img src="Work_003.png" alt="Art Installation" loading="lazy">
+      <div class="proj-item proj-item-wide">
+        <video autoplay muted loop playsinline>
+          <source src="video-god-complex.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="proj-item">
+        <video autoplay muted loop playsinline>
+          <source src="video-luminous-mist.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="proj-item">
+        <video autoplay muted loop playsinline>
+          <source src="video-clutter.mp4" type="video/mp4">
+        </video>
       </div>
     </div>
   </div>
