@@ -1098,6 +1098,78 @@
     }
 
     /* ─────────────────────────────────────────
+       MUSIC TOGGLE
+    ───────────────────────────────────────── */
+    #music-btn {
+      position: fixed;
+      bottom: 32px;
+      left: 36px;
+      z-index: 800;
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: var(--card);
+      cursor: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: all var(--t);
+    }
+    #music-btn:hover {
+      border-color: rgba(107,70,193,0.3);
+      box-shadow: 0 4px 24px rgba(107,70,193,0.15);
+      transform: scale(1.08);
+    }
+    #music-btn.playing {
+      background: var(--v);
+      border-color: var(--v);
+    }
+    #music-btn.playing::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1px solid rgba(107,70,193,0.25);
+      animation: music-ring 2s ease-out infinite;
+    }
+    @keyframes music-ring {
+      0%   { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+    .music-icon { width: 16px; height: 16px; display: flex; align-items: center; justify-content: center; }
+    .music-icon svg { width: 16px; height: 16px; fill: var(--gray); transition: fill var(--t); }
+    #music-btn.playing .music-icon svg { fill: #fff; }
+
+    /* Bars animation when playing */
+    .music-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 14px;
+    }
+    .music-bars span {
+      width: 2.5px;
+      background: var(--gray);
+      border-radius: 2px;
+      transition: background var(--t);
+      animation: none;
+    }
+    #music-btn.playing .music-bars span { background: #fff; }
+    #music-btn.playing .music-bars span:nth-child(1) { animation: bar 0.8s ease-in-out infinite; }
+    #music-btn.playing .music-bars span:nth-child(2) { animation: bar 0.8s ease-in-out infinite 0.15s; }
+    #music-btn.playing .music-bars span:nth-child(3) { animation: bar 0.8s ease-in-out infinite 0.3s; }
+    #music-btn.playing .music-bars span:nth-child(4) { animation: bar 0.8s ease-in-out infinite 0.45s; }
+    .music-bars span:nth-child(1) { height: 6px; }
+    .music-bars span:nth-child(2) { height: 12px; }
+    .music-bars span:nth-child(3) { height: 8px; }
+    .music-bars span:nth-child(4) { height: 10px; }
+    @keyframes bar {
+      0%, 100% { transform: scaleY(0.4); }
+      50%       { transform: scaleY(1); }
+    }
+
+    /* ─────────────────────────────────────────
        SCROLL REVEAL
     ───────────────────────────────────────── */
     .reveal {
@@ -1186,6 +1258,16 @@
   <!-- Cursor -->
   <div id="cur"></div>
   <div id="cur-ring"></div>
+
+  <!-- Music toggle -->
+  <button id="music-btn" aria-label="Toggle background music">
+    <div class="music-icon">
+      <div class="music-bars">
+        <span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </button>
+  <audio id="bg-music" src="music.mp3" loop preload="none"></audio>
 
   <!-- ════════════ NAV ════════════ -->
   <nav id="nav">
@@ -1687,6 +1769,80 @@
       }
       requestAnimationFrame(tickHero);
     })();
+    /* ── Background music toggle ── */
+    const bgMusic  = document.getElementById('bg-music');
+    const musicBtn = document.getElementById('music-btn');
+    let musicReady = false;
+
+    bgMusic.volume = 0;
+
+    function fadeVolume(target, duration) {
+      const start   = bgMusic.volume;
+      const diff    = target - start;
+      const steps   = 40;
+      const stepTime = duration / steps;
+      let i = 0;
+      const timer = setInterval(() => {
+        i++;
+        bgMusic.volume = Math.min(1, Math.max(0, start + diff * (i / steps)));
+        if (i >= steps) {
+          clearInterval(timer);
+          if (target === 0) bgMusic.pause();
+        }
+      }, stepTime);
+    }
+
+    musicBtn.addEventListener('click', () => {
+      if (!musicReady) {
+        bgMusic.load();
+        musicReady = true;
+      }
+      if (bgMusic.paused) {
+        bgMusic.play();
+        fadeVolume(0.3, 1200);
+        musicBtn.classList.add('playing');
+      } else {
+        fadeVolume(0, 800);
+        musicBtn.classList.remove('playing');
+      }
+    });
+
+    /* ── Hover sounds on cards (Web Audio API) ── */
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playHoverSound() {
+      const osc  = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(520, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(420, audioCtx.currentTime + 0.08);
+      gain.gain.setValueAtTime(0.04, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.1);
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime + 0.1);
+    }
+
+    function playExpandSound() {
+      const osc  = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(340, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(520, audioCtx.currentTime + 0.15);
+      gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.18);
+      osc.start(audioCtx.currentTime);
+      osc.stop(audioCtx.currentTime + 0.18);
+    }
+
+    document.querySelectorAll('.pcard').forEach(card => {
+      card.addEventListener('mouseenter', playHoverSound);
+      card.addEventListener('click', playExpandSound);
+    });
+
   </script>
 </body>
 </html>
