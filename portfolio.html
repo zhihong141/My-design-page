@@ -609,6 +609,21 @@
       transition: all var(--t);
     }
     .c-tag:hover { background: var(--v-pale); border-color: rgba(107,70,193,0.3); color: var(--v); }
+    .c-ext-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      color: var(--v);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(107,70,193,0.3);
+      padding-bottom: 1px;
+      transition: all var(--t);
+    }
+    .c-ext-link:hover { color: var(--v-dark); border-bottom-color: var(--v-dark); gap: 10px; }
 
     .c-details {
       display: grid;
@@ -1076,9 +1091,9 @@
     <div class="work-grid-wrap">
       <div class="work-grid" id="workGrid" role="list">
 
-        <!-- ── Card 01: Surreal Editorial ── -->
+        <!-- ── Card 01: CTRL-A ── -->
         <article class="pcard reveal" role="listitem" tabindex="0" aria-expanded="false"
-                 aria-label="Project: Surreal Editorial Series">
+                 aria-label="Project: Proj CTRL-A — TV Channel Branding">
           <div class="c-thumb th-editorial" aria-hidden="true">
             <div class="tg tg-1"></div>
             <div class="tg tg-2"></div>
@@ -1086,28 +1101,33 @@
           </div>
           <div class="c-body">
             <div class="c-meta">
-              <span class="c-year">2025</span>
+              <span class="c-year">2026</span>
               <button class="c-btn" aria-label="Expand project details" tabindex="-1">+</button>
             </div>
-            <h3 class="c-title">Surreal Editorial Series</h3>
-            <p class="c-cat">Editorial / AI-Assisted</p>
+            <h3 class="c-title">Proj CTRL-A — TV Channel Branding</h3>
+            <p class="c-cat">Branding / Digital Art</p>
           </div>
           <div class="c-expand" aria-hidden="true">
             <div class="c-expand-inner">
               <div>
-                <p class="c-desc">Exploring institutional spaces and solitary figures through AI-assisted rendering. Dark, contemplative compositions featuring back-facing subjects in mysterious architectural environments.</p>
+                <p class="c-desc">A conceptual TV channel branding project exploring bold visual identity design through AI-assisted image generation and motion. CTRL-A — select all — sets the tone for a channel that captures everything.</p>
                 <div class="c-tags">
-                  <span class="c-tag">Editorial</span>
+                  <span class="c-tag">Branding</span>
+                  <span class="c-tag">TV Channel</span>
                   <span class="c-tag">AI-Assisted</span>
-                  <span class="c-tag">2D/3D Hybrid</span>
-                  <span class="c-tag">Series</span>
+                  <span class="c-tag">Motion</span>
+                  <span class="c-tag">Identity Design</span>
                 </div>
+                <a href="https://www.behance.net/gallery/248213117/Proj-CTRL-A-TV-Channel-Branding"
+                   class="c-ext-link" target="_blank" rel="noopener" aria-label="View on Behance">
+                  View on Behance ↗
+                </a>
               </div>
               <div class="c-details">
-                <div class="c-dl"><label>Year</label><span>2025</span></div>
+                <div class="c-dl"><label>Year</label><span>2026</span></div>
                 <div class="c-dl"><label>Medium</label><span>Digital Art</span></div>
                 <div class="c-dl"><label>Role</label><span>Art Director</span></div>
-                <div class="c-dl"><label>Tools</label><span>Midjourney, Photoshop</span></div>
+                <div class="c-dl"><label>Tools</label><span>GPT Image, Klingai</span></div>
               </div>
             </div>
           </div>
