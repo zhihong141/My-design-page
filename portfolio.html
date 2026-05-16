@@ -701,11 +701,35 @@
       font-family: 'Syne', sans-serif;
       font-weight: 800;
       font-size: clamp(64px, 8vw, 108px);
-      color: rgba(255,255,255,0.07);
       letter-spacing: -0.04em;
       user-select: none;
       position: relative;
       z-index: 1;
+      display: flex;
+      align-items: baseline;
+      gap: 0.04em;
+    }
+    .av-seven, .av-four {
+      background: linear-gradient(90deg,
+        #c084fc, #8b5cf6, #6b46c1, #3b82f6, #8b5cf6, #c084fc
+      );
+      background-size: 300% 100%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: av-float 6s ease-in-out infinite, av-gradient 4s linear infinite;
+      filter: drop-shadow(0 0 12px rgba(139,92,246,0.4));
+    }
+    .av-four {
+      animation-delay: 0.8s, 0s;
+    }
+    @keyframes av-float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-14px); }
+    }
+    @keyframes av-gradient {
+      0%   { background-position: 0% 50%; }
+      100% { background-position: 300% 50%; }
     }
     .av-ring {
       position: absolute;
@@ -1249,12 +1273,12 @@
         <div class="about-card reveal">
           <p class="about-label">// About</p>
           <h2 class="about-stmt">Creative design at the intersection of the digital and the surreal.</h2>
-          <p class="about-body">I am seven.four, a creative designer creating hybrid 2D and 3D works, and experimenting with AI. My work lives in the space between editorial design, interactive experiences, and experimental aesthetics.</p>
+          <p class="about-body">A creative designer creating hybrid 2D and 3D works, and experimenting with AI. My work lives in the space between editorial design, interactive experiences, and experimental aesthetics.</p>
           <p class="about-body">Seeking to contribute design and production skills to a signage and specialty product team where precision, creativity, and collaboration are valued.</p>
         </div>
 
         <div class="about-card about-visual reveal" aria-hidden="true">
-          <div class="av-text">7.4</div>
+          <div class="av-text"><span class="av-seven">7</span><span class="av-four">.4</span></div>
           <div class="av-ring"></div>
           <div class="av-ring2"></div>
           <div class="av-dot"></div>
