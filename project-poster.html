@@ -84,9 +84,9 @@
     .footer-copy { font-family: 'JetBrains Mono', monospace; font-size: 9.5px; letter-spacing: 0.08em; color: var(--gray-lt); }
     @media (max-width: 860px) { .proj-strip { grid-template-columns: 1fr 1fr; } .proj-strip-item:nth-child(2) { border-right: none; } .proj-body { grid-template-columns: 1fr; gap: 40px; } }
     @media (max-width: 600px) { .proj-hero-content { padding: 32px 20px; } .proj-strip { padding: 0 20px; grid-template-columns: 1fr 1fr; } .proj-body, .proj-gallery { padding-left: 20px; padding-right: 20px; } .back-link { padding: 16px 20px; } .pnav-item { padding: 24px 20px; } .proj-nav { grid-template-columns: 1fr; } .pnav-item:first-child { border-right: none; border-bottom: 1px solid var(--border); } .pnav-item:last-child { align-items: flex-start; } footer { flex-direction: column; gap: 8px; text-align: center; padding: 20px; } }
-    .proj-item { cursor: pointer; transition: transform 0.35s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease; }
+    .proj-item { cursor: pointer; transition: transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.35s ease, opacity 0.35s ease, box-shadow 0.35s ease; }
     .proj-gallery-grid.has-focus .proj-item { filter: blur(3px); opacity: 0.4; }
-    .proj-gallery-grid.has-focus .proj-item.focused { filter: none; opacity: 1; transform: scale(1.04); box-shadow: 0 20px 56px rgba(0,0,0,0.28); z-index: 2; }
+    .proj-gallery-grid.has-focus .proj-item.focused { filter: none; opacity: 1; box-shadow: 0 24px 64px rgba(0,0,0,0.32); z-index: 2; }
   </style>
 </head>
 <body>
@@ -202,14 +202,18 @@
       var items = grid.querySelectorAll('.proj-item');
       function clearFocus() {
         grid.classList.remove('has-focus');
-        items.forEach(function(i) { i.classList.remove('focused'); });
+        items.forEach(function(i) { i.classList.remove('focused'); i.style.transform = ''; });
       }
       items.forEach(function(item) {
         item.addEventListener('click', function() {
           if (item.classList.contains('focused')) { clearFocus(); return; }
           grid.classList.add('has-focus');
-          items.forEach(function(i) { i.classList.remove('focused'); });
+          items.forEach(function(i) { i.classList.remove('focused'); i.style.transform = ''; });
           item.classList.add('focused');
+          var r = item.getBoundingClientRect();
+          var dx = window.innerWidth / 2 - (r.left + r.width / 2);
+          var dy = window.innerHeight / 2 - (r.top + r.height / 2);
+          item.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(1.05)';
         });
       });
       document.addEventListener('click', function(e) { if (!e.target.closest('.proj-gallery-grid')) clearFocus(); });
