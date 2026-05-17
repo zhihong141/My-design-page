@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Art Installation — seven.four</title>
+  <title>Construct // Brutalism — seven.four</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%236B46C1'/><text x='50%' y='55%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='900' font-size='13' fill='white'>7.4</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +38,7 @@
     .nav-links a:hover::after { width: 100%; }
     @media (max-width: 600px) { #nav { padding: 14px 20px; } .nav-links { gap: 16px; } .nav-links a { font-size: 9px; } }
     @media (max-width: 420px) { .nav-links { display: none; } }
-    .proj-hero { height: 70svh; min-height: 400px; position: relative; overflow: hidden; display: flex; align-items: flex-end; background: #0d0d0d url('Work_003.png') center / contain no-repeat; }
+    .proj-hero { height: 70svh; min-height: 400px; position: relative; overflow: hidden; display: flex; align-items: flex-end; background: #c9bfb0 url('Work_004.png') center / cover no-repeat; }
     .proj-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,10,0.85) 0%, rgba(10,10,10,0.2) 50%, transparent 100%); }
     .proj-hero-content { position: relative; z-index: 1; padding: 48px 44px; width: 100%; }
     .proj-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 12px; }
@@ -66,10 +66,11 @@
     .proj-gallery-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--v); margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
     .proj-gallery-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .proj-gallery-grid .proj-item-wide { grid-column: 1 / -1; }
-    .proj-item { border-radius: var(--r); overflow: hidden; background: #0d0d0d; aspect-ratio: 16/9; }
+    .proj-item { border-radius: var(--r); overflow: hidden; background: #c9bfb0; aspect-ratio: 16/9; }
+    .proj-item.proj-item-portrait { aspect-ratio: 9/16; }
     .proj-item video { width: 100%; height: 100%; object-fit: contain; display: block; }
     .proj-item img { width: 100%; height: 100%; object-fit: contain; display: block; }
-    @media (max-width: 600px) { .proj-gallery-grid { grid-template-columns: 1fr; } .proj-gallery-grid .proj-item-wide { grid-column: 1; } }
+    @media (max-width: 600px) { .proj-gallery-grid { grid-template-columns: 1fr; } .proj-gallery-grid .proj-item-wide { grid-column: 1; } .proj-item.proj-item-portrait { aspect-ratio: 9/16; } }
     .proj-nav { border-top: 1px solid var(--border); display: grid; grid-template-columns: 1fr 1fr; }
     .pnav-item { padding: 36px 44px; text-decoration: none; display: flex; flex-direction: column; gap: 8px; transition: background var(--t); }
     .pnav-item:first-child { border-right: 1px solid var(--border); }
@@ -108,37 +109,34 @@
     <div class="proj-hero-overlay"></div>
     <div class="proj-hero-content">
       <p class="proj-eyebrow">3D Modeling / Concept Art</p>
-      <h1 class="proj-title">Art Installation</h1>
+      <h1 class="proj-title">Construct // Brutalism</h1>
       <div class="proj-meta-inline">
-        <span><strong>2025 – 2026</strong></span>
+        <span><strong>2026</strong></span>
         <span>Designer</span>
-        <span>Blender, After Effects</span>
+        <span>Blender</span>
       </div>
     </div>
   </div>
 
   <div class="proj-strip">
-    <div class="proj-strip-item"><p class="psi-label">Year</p><p class="psi-val">2025 – 2026</p></div>
+    <div class="proj-strip-item"><p class="psi-label">Year</p><p class="psi-val">2026</p></div>
     <div class="proj-strip-item"><p class="psi-label">Medium</p><p class="psi-val">3D Modeling</p></div>
     <div class="proj-strip-item"><p class="psi-label">Role</p><p class="psi-val">Designer</p></div>
-    <div class="proj-strip-item"><p class="psi-label">Tools</p><p class="psi-val">Blender, After Effects</p></div>
+    <div class="proj-strip-item"><p class="psi-label">Tools</p><p class="psi-val">Blender</p></div>
   </div>
 
   <div class="proj-body">
     <div>
       <p class="proj-desc-label">// Overview</p>
-      <p class="proj-desc">A series of conceptual 3D renders envisioning gallery-style art installations as immersive spatial experiences — where architecture, lighting, and art direction converge into a single curated environment.</p>
-      <p class="proj-desc">Each piece treats the gallery space itself as the medium. The installations are designed to feel site-specific: the lighting reacts to the architecture, the objects exist in dialogue with the walls and floors around them, and the viewer's implied position shapes the entire composition.</p>
-      <p class="proj-desc">Built entirely in Blender, with post-production in After Effects to refine the mood and introduce the subtle visual weight that separates a render from a photograph.</p>
+      <p class="proj-desc">This brutalist architectural concept explores the relationship between mass, structure, and emotional atmosphere through a highly sculptural 3D form. Inspired by the core principles of Brutalism, the building emphasizes raw geometric composition, monolithic presence, and an unapologetically industrial material language.</p>
+      <p class="proj-desc">The design focuses on heavy volumetric forms, repetitive structural rhythm, and bold cantilevered elements that create a sense of tension, permanence, and controlled isolation.</p>
       <div class="proj-tags">
         <span class="proj-tag">Concept Art</span>
         <span class="proj-tag">3D Modeling</span>
-        <span class="proj-tag">Environment Design</span>
-        <span class="proj-tag">Motion</span>
       </div>
     </div>
     <div class="proj-sidebar">
-      <a href="https://www.artstation.com/sevenfour_heavenfall/albums/14538766" class="proj-link" target="_blank" rel="noopener">
+      <a href="https://www.artstation.com/sevenfour_heavenfall" class="proj-link" target="_blank" rel="noopener">
         View on ArtStation <span>↗</span>
       </a>
     </div>
@@ -147,32 +145,26 @@
   <div class="proj-gallery">
     <p class="proj-gallery-label">// Gallery</p>
     <div class="proj-gallery-grid">
-      <div class="proj-item proj-item-wide">
-        <video autoplay muted loop playsinline>
-          <source src="video-god-complex.mp4" type="video/mp4">
-        </video>
+      <div class="proj-item proj-item-portrait">
+        <img src="construct-001.png" alt="Construct 001 — CRAVS" loading="lazy">
       </div>
-      <div class="proj-item">
-        <video autoplay muted loop playsinline>
-          <source src="video-luminous-mist.mp4" type="video/mp4">
-        </video>
+      <div class="proj-item proj-item-portrait">
+        <img src="construct-002.png" alt="Construct 002 — CRAVS" loading="lazy">
       </div>
-      <div class="proj-item">
-        <video autoplay muted loop playsinline>
-          <source src="video-clutter.mp4" type="video/mp4">
-        </video>
+      <div class="proj-item proj-item-portrait">
+        <img src="construct-003.png" alt="Construct 003 — CRAVS" loading="lazy">
       </div>
     </div>
   </div>
 
   <nav class="proj-nav" aria-label="Project navigation">
-    <a href="project-loading-screen.html" class="pnav-item">
+    <a href="project-art-installation.html" class="pnav-item">
       <span class="pnav-dir">← Previous</span>
-      <span class="pnav-title">Loading Screen</span>
+      <span class="pnav-title">Art Installation</span>
     </a>
-    <a href="project-construct.html" class="pnav-item">
-      <span class="pnav-dir">Next →</span>
-      <span class="pnav-title">Construct // Brutalism</span>
+    <a href="index.html" class="pnav-item">
+      <span class="pnav-dir">Back →</span>
+      <span class="pnav-title">All Projects</span>
     </a>
   </nav>
 
