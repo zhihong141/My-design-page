@@ -204,7 +204,8 @@
           var r = item.getBoundingClientRect();
           var dx = window.innerWidth / 2 - (r.left + r.width / 2);
           var dy = window.innerHeight / 2 - (r.top + r.height / 2);
-          item.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(1.05)';
+          var scale = Math.min(window.innerWidth * 0.88 / r.width, window.innerHeight * 0.88 / r.height);
+          item.style.transform = 'translate(' + dx + 'px,' + dy + 'px) scale(' + scale + ')';
           var fv = item.querySelector('video'); if (fv) fv.play().catch(function(){});
         });
       });
