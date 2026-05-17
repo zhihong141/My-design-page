@@ -1904,7 +1904,10 @@
       workGrid.classList.add('grid-dimmed');
       document.body.classList.add('card-open');
       active = card;
-      setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 80);
+      setTimeout(() => {
+        const top = card.getBoundingClientRect().top + window.scrollY - 88;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 80);
     }
 
     function collapseCard(card) {
