@@ -2209,6 +2209,28 @@
       }
     });
 
+    /* ── Resume music if returning from a project page ── */
+    if (sessionStorage.getItem('sf_musicPlaying') === 'true') {
+      const _t = parseFloat(sessionStorage.getItem('sf_musicTime') || '0');
+      bgMusic.load(); musicReady = true;
+      bgMusic.addEventListener('canplay', function() {
+        bgMusic.currentTime = _t;
+        bgMusic.play().catch(function(){});
+        fadeVolume(0.7, 800);
+        musicBtn.classList.add('playing');
+      }, { once: true });
+    }
+
+    /* ── Save music state when navigating to project pages ── */
+    document.querySelectorAll('a[href]').forEach(function(link) {
+      const href = link.getAttribute('href');
+      if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
+      link.addEventListener('click', function() {
+        sessionStorage.setItem('sf_musicPlaying', (!bgMusic.paused).toString());
+        sessionStorage.setItem('sf_musicTime', bgMusic.currentTime.toString());
+      });
+    });
+
     /* ── Hover sounds on cards (Web Audio API) ── */
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 

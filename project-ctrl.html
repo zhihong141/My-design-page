@@ -358,10 +358,25 @@
       gsap.to('#pt', { y: '-100%', duration: 0.8, ease: 'power3.inOut', delay: 0.1 });
     });
 
+    /* ── Music continuity ── */
+    (function() {
+      if (sessionStorage.getItem('sf_musicPlaying') !== 'true') return;
+      const t = parseFloat(sessionStorage.getItem('sf_musicTime') || '0');
+      const a = new Audio('music.mp3');
+      window._sfMusic = a;
+      a.loop = true; a.volume = 0;
+      a.addEventListener('canplay', function() {
+        a.currentTime = t; a.play().catch(function(){});
+        var v = 0, id = setInterval(function() { v = Math.min(0.7, v+0.035); a.volume = v; if (v >= 0.7) clearInterval(id); }, 50);
+      }, { once: true });
+      a.load();
+    })();
+
     document.querySelectorAll('a[href]').forEach(link => {
       const href = link.getAttribute('href');
       if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto')) return;
       link.addEventListener('click', e => {
+        if (window._sfMusic) { sessionStorage.setItem('sf_musicPlaying', (!window._sfMusic.paused).toString()); sessionStorage.setItem('sf_musicTime', window._sfMusic.currentTime.toString()); }
         if (typeof gsap === 'undefined') return;
         e.preventDefault();
         gsap.to('#pt', { y: '0%', duration: 0.6, ease: 'power3.inOut', onComplete: () => { window.location.href = href; } });
