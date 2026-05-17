@@ -1917,6 +1917,10 @@
       workGrid.classList.remove('grid-dimmed');
       document.body.classList.remove('card-open');
       active = null;
+      setTimeout(() => {
+        const top = card.getBoundingClientRect().top + window.scrollY - 88;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }, 80);
     }
 
     cards.forEach(card => {
