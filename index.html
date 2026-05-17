@@ -1119,6 +1119,7 @@
       align-items: center;
       justify-content: center;
       pointer-events: all;
+      overflow: hidden;
     }
     .intro-panel {
       position: absolute;
@@ -1142,7 +1143,7 @@
     .intro-logo {
       font-family: 'Syne', sans-serif;
       font-weight: 800;
-      font-size: clamp(28px, 11vw, 112px);
+      font-size: min(10vw, 112px);
       letter-spacing: -0.03em;
       display: flex;
       align-items: baseline;
